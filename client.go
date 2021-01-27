@@ -21,7 +21,6 @@ import (
 	"github.com/weichang-bianjie/msg-sdk/modules/staking"
 	"github.com/weichang-bianjie/msg-sdk/modules/token"
 	"github.com/weichang-bianjie/msg-sdk/modules/upgrade"
-	"github.com/weichang-bianjie/msg-sdk/modules/wasm"
 )
 
 type MsgClient struct {
@@ -44,7 +43,7 @@ type MsgClient struct {
 	Htlc         htlc.Client
 	Record       record.Client
 	Coinswap     coinswap.Client
-	Wasm         wasm.Client
+	//Wasm         wasm.Client
 }
 
 func NewMsgClient() MsgClient {
@@ -69,6 +68,6 @@ func NewMsgClient() MsgClient {
 		Htlc:         htlc.NewClient(),
 		Token:        token.NewClient(),
 		Coinswap:     coinswap.NewClient(),
-		Wasm:         wasm.NewClient(),
+		//Wasm:         wasm.NewClient(),
 	}
 }
