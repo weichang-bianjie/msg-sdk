@@ -3,7 +3,6 @@ package integration
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/x/auth/signing"
 	"github.com/weichang-bianjie/msg-sdk/codec"
 	"github.com/weichang-bianjie/msg-sdk/utils"
 )
@@ -28,11 +27,10 @@ func CreateClient(s IntegrationTestSuite) {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	Tx, err := codec.GetTxDecoder()(txBytes)
+	authTx, err := codec.GetSigningTx(txBytes)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	authTx := Tx.(signing.Tx)
 	for _, msg := range authTx.GetMsgs() {
 		if bankDoc, ok := s.Ibc.HandleTxMsg(msg); ok {
 			fmt.Println(utils.MarshalJsonIgnoreErr(bankDoc))
