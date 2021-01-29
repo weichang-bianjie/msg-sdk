@@ -8,7 +8,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/std"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/auth/signing"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
+	"github.com/tendermint/tendermint/types"
 )
 
 var (
@@ -42,6 +44,15 @@ func GetTxDecoder() sdk.TxDecoder {
 
 func GetMarshaler() codec.Marshaler {
 	return encodecfg.Marshaler
+}
+
+func GetSigningTx(txBytes types.Tx) (signing.Tx, error) {
+	Tx, err := GetTxDecoder()(txBytes)
+	if err != nil {
+		return nil, err
+	}
+	signingTx := Tx.(signing.Tx)
+	return signingTx, nil
 }
 
 func RegisterAppModules(module ...module.AppModuleBasic) {
